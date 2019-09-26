@@ -1,0 +1,36 @@
+{
+  "name": "express-template-es10",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "babel-node app.js --exec",
+    "dev": "nodemon app.js",
+    "devbabel": "nodemon app.js --exec babel-node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/donEber/express-template-es10.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/donEber/express-template-es10/issues"
+  },
+  "homepage": "https://gitlab.com/donEber/express-template-es10#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "morgan": "^1.9.1",
+    "pug": "^2.0.4",
+    "serve-favicon": "^2.5.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.6.2",
+    "@babel/core": "^7.6.2",
+    "@babel/node": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
+    "nodemon": "^1.19.2"
+  }
+}
