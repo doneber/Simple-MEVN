@@ -4,6 +4,7 @@ import pug from 'pug'
 import morgan from 'morgan'
 import favicon from 'serve-favicon'
 import routes from './routes/index'
+import routesLibros from './routes/libros'
 
 const app = express(),
     port = process.env.port || 3000,
@@ -25,6 +26,18 @@ app
     .use(express.static(pathPublic))    //definimos la carpeta estatica (public)
     /* rutas */
     .use('/', routes)
+    .use('/libros', routesLibros)
+     /* 404 */
+    .use((req, res, next) => {
+        const error = new Error()
+        const locals = {
+            title: 'Error 404',
+            descripcion: 'Recurso no encontrado',
+            error
+        }
+        error.status = 404
+        res.status(404).render('error404', locals)
+    })
     .listen(port, () => {
         console.log(`Corriendo el el puerto: ${port}`)
     })
