@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import Item from './../models/item'
 const router = Router()
 const items = [
 	{
@@ -18,22 +19,30 @@ const items = [
 	},
 ]
 router
-	.get('/mostrar', mostrarItems);
+	.get('/mostrar', mostrarItems)
+	.post('/crear', crearItem)
+
 function mostrarItems(req, res) {
 	/* ... */
 	res.render('Items/items',{items})
-
+}
+async function crearItem(req, res){
+	const body = req.body 
+	try {
+		const nuevoItem = await Item.create(body)
+		return res.json(nuevoItem)
+	} catch (error) {
+		return res.status(500).json({
+				mensaje: "Error al crear item",	
+				error
+			});
+	}
+	// res.redirect('/items/mostrar')
 }
 /*
-router
-	.post('./crear', crearItem)
-	.update('./actualizar/:id', actualizarItem)
-	.delete('./eliminar/:id', eliminarItem)
+.update('./actualizar/:id', actualizarItem)
+.delete('./eliminar/:id', eliminarItem)
 
-function crearItem(req, res){
-	// ---
-	res.redirect('/mostrar')
-}
 function actualizarItem(req, res){
 	// ---
 	res.redirect('/mostrar')

@@ -24,6 +24,8 @@ function error404(req, res, next){
     error.status = 404
     res.status(404).render('error404', locals)
 }
+/* Base de datos */
+require('./database')   //Conexion y configuracion a la base de datos
 app
     /* configuraciones de la App */
     .set('views', pathViews)    //Definimos la ruta para todas nuestra vistas (views)
