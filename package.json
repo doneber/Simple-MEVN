@@ -10,18 +10,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/donEber/express-template-es10.git"
+    "url": "git+https://gitlab.com/donEber/mevn-pug-materialize.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://gitlab.com/donEber/express-template-es10/issues"
+    "url": "https://gitlab.com/donEber/mevn-pug-materialize/issues"
   },
-  "homepage": "https://gitlab.com/donEber/express-template-es10#readme",
+  "homepage": "https://gitlab.com/donEber/mevn-pug-materialize#readme",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "materialize-css": "^1.0.0-rc.2",
     "morgan": "^1.9.1",
     "pug": "^2.0.4",
     "serve-favicon": "^2.5.0"

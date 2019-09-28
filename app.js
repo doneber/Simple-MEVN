@@ -10,7 +10,8 @@ const app = express(),
     port = process.env.port || 3000,
     pathViews = `${__dirname}/views`,
     pathFavicon = `${__dirname}/public/img/favicon.ico`,
-    pathPublic = `${__dirname}/public`;
+    pathPublic = `${__dirname}/public`,
+    pathPublicMaterialize = `${__dirname}/node_modules/materialize-css/dist`;
 /*funciones*/
 function error404(req, res, next){
     //La funcion manda el error a la vista
@@ -35,6 +36,7 @@ app
     .use(express.urlencoded({ extended: true }))   //para trabajar con aplicaiones www-form-urlencode
     .use(favicon(pathFavicon))  //para no tener problemas con el favicon
     .use(express.static(pathPublic))    //definimos la carpeta estatica (public)
+    .use(express.static(pathPublicMaterialize))    //definimos la carpeta estatica (materialize)
     /* rutas */
     .use('/', routes)
     .use('/items', routesItems)
