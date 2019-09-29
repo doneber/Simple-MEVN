@@ -1,56 +1,78 @@
 import { Router } from 'express'
 import Item from './../models/item'
 const router = Router()
-const items = [
-	{
-		id: 1,
-		nombre: "Item 1",
-		descripcion: "Descripcion 1",
-	},
-	{
-		id: 2,
-		nombre: "Item 2",
-		descripcion: "Descripcion 2",
-	},
-	{
-		id: 3,
-		nombre: "Item 3",
-		descripcion: "Descripcion 3",
-	},
-]
 router
 	.get('/mostrar', mostrarItems)
+	//CRUD
+	.get('/obtener/:id', obtenerItem)
 	.post('/crear', crearItem)
+	.put('/actualizar/:id', actualizarItem)
+	.delete('/eliminar/:id', eliminarItem)
 
-function mostrarItems(req, res) {
-	/* ... */
-	res.render('Items/items',{items})
+
+async function mostrarItems(req, res) {
+	const items = await Item.find()
+	console.log(items)
+	res.render('Items/items', { items })
 }
-async function crearItem(req, res){
-	const body = req.body 
+async function obtenerItem(req, res) {
+	try {
+		const _id = req.params.id
+		const nota = await Item.findById(_id);
+		if(!nota)
+			return res.status(400).json({
+				mensaje: "Item no encontrado"
+			})
+		return res.json(nota)
+	} catch (error) {
+		return res.status(500).json({
+			mensaje: "Error al obtener item",
+			error
+		});
+	}
+}
+async function crearItem(req, res) {
+	const body = req.body
 	try {
 		const nuevoItem = await Item.create(body)
 		return res.json(nuevoItem)
 	} catch (error) {
 		return res.status(500).json({
-				mensaje: "Error al crear item",	
-				error
-			});
+			mensaje: "Error al crear item",
+			error
+		});
 	}
-	// res.redirect('/items/mostrar')
 }
-/*
-.update('./actualizar/:id', actualizarItem)
-.delete('./eliminar/:id', eliminarItem)
+async function actualizarItem(req, res) {
+	const _id = req.params.id
+	const body = req.body
+	try {
+		const itemActualizado = await Item.findByIdAndUpdate(_id, body, { new: true })
+		res.json(itemActualizado)
+	} catch (error) {
+		return res.status(500).json({
+			mensaje: "Error al actualizar item",
+			error
+		});
+	}
+}
 
-function actualizarItem(req, res){
-	// ---
-	res.redirect('/mostrar')
+async function eliminarItem(req, res) {
+	const _id = req.params.id;
+	try {
+		const itemEliminado = await Item.findByIdAndDelete({ _id })
+		if (!itemEliminado)
+			return res.status(400).json({
+				mensaje: "Item no encontrado",
+			})
+		res.json(itemEliminado)
+
+	} catch (error) {
+		return res.status(500).json({
+			mensaje: "Error al eliminar item",
+			error
+		});
+	}
 }
-function eliminarItem(req, res){
-	// ---
-	res.redirect('/mostrar')	
-}
-*/
 
 module.exports = router

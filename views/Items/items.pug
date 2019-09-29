@@ -2,10 +2,11 @@ extends ../layout.pug
 block content
 	h1 Aqui estan los items:
 	ul
-		each item, i in items
-			li #{item.id}
-			li #{item.nombre}
-			li #{item.descripcion}
+		each item in items
+			li 
+				b Id: #{item._id}
+			li Nombre: #{item.nombre}
+			li Descripcion: #{item.descripcion}
 			br
 		else
 			h1 No hay items
