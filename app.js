@@ -5,6 +5,7 @@ import morgan from 'morgan'
 import favicon from 'serve-favicon'
 import routes from './routes/index'
 import routesItems from './routes/items'
+import methodOverride from 'method-override'
 
 const app = express(),
     port = process.env.port || 3000,
@@ -32,6 +33,7 @@ app
     .set('view engine', 'pug')  //El motor de plantillas
     .set('port', port)  //Definimos el puerto a usar
     /* middlewares */
+    .use(methodOverride('_method'))
     .use(morgan('tiny'))    //para ver las peticiones a nuestro servidor
     .use(cors())    //para hacer peticiones a otros dominios
     .use(express.json())    //para usar json en respuestas

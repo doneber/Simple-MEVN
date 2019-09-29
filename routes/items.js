@@ -8,11 +8,12 @@ router
 	.post('/crear', crearItem)
 	.put('/actualizar/:id', actualizarItem)
 	.delete('/eliminar/:id', eliminarItem)
-
+	//CRUD Vistas
+	.get('/crear',(req,res)=>res.render('Items/nuevoItem'))
+	.get('/actualizar/:id',mostrarActualizarItem)
 
 async function mostrarItems(req, res) {
 	const items = await Item.find()
-	console.log(items)
 	res.render('Items/items', { items })
 }
 async function obtenerItem(req, res) {
@@ -73,6 +74,11 @@ async function eliminarItem(req, res) {
 			error
 		});
 	}
+}
+async function mostrarActualizarItem(req,res){
+	const _id = req.params.id
+	const itemActalizar = await Item.findById(_id)
+	res.render('Items/actualizarItem',itemActalizar)
 }
 
 module.exports = router

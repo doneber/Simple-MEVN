@@ -1,5 +1,6 @@
 extends ../layout.pug
 block content
+	a(href="/items/crear").btn Crear item
 	h1 Aqui estan los items:
 	ul
 		each item in items
@@ -7,6 +8,9 @@ block content
 				b Id: #{item._id}
 			li Nombre: #{item.nombre}
 			li Descripcion: #{item.descripcion}
+			form(method='POST', action=`/items/eliminar/${item._id}?_method=DELETE`)
+				button(type='submit').btn Eliminar
+			a(href=`/items/actualizar/${item._id}`) Actualizar
 			br
 		else
 			h1 No hay items

@@ -1,0 +1,8 @@
+extends ../layout.pug
+block content
+    form(action="/items/crear" method="POST")
+        label Nombre:
+            input(type="text" name="nombre")
+        label Descripcion:
+            input(type="text" name="descripcion")
+        input(type="submit").btn
