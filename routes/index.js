@@ -3,6 +3,6 @@ const router = Router()
 
 router
     .get('/',(req,res)=>{
-        res.send("ola ke ace")
+        res.render('index')
     })
 module.exports = router

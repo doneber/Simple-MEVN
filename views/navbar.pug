@@ -2,17 +2,8 @@
     nav
         .nav-wrapper.container
             a.brand-logo(href='/') MEVN
-            a(href="#" data-target="i-am-a-menu").sidenav-trigger
-                i.material-icons menu
-            ul.right.hide-on-med-and-down
+            ul#nav-mobile.right
                 li
                     a(href='/') Home
                 li
-                    a(href='/api/mostrar') Items
-ul#i-am-a-menu.sidenav
-    li
-        a(href="/") Home
-    li
-        .divider
-    li
-        a(href="/api/mostrar") Items
+                    a(href='/items/mostrar') Items

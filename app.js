@@ -5,10 +5,8 @@ import morgan from 'morgan'
 import favicon from 'serve-favicon'
 import routes from './routes/index'
 import routesItems from './routes/items'
-import methodOverride from 'method-override'
 
 const app = express(),
-    history = require('connect-history-api-fallback'),
     port = process.env.port || 3000,
     pathViews = `${__dirname}/views`,
     pathFavicon = `${__dirname}/public/img/favicon.ico`,
@@ -26,16 +24,12 @@ function error404(req, res, next){
     error.status = 404
     res.status(404).render('error404', locals)
 }
-/* Base de datos */
-require('./database')   //Conexion y configuracion a la base de datos
 app
     /* configuraciones de la App */
     .set('views', pathViews)    //Definimos la ruta para todas nuestra vistas (views)
     .set('view engine', 'pug')  //El motor de plantillas
     .set('port', port)  //Definimos el puerto a usar
     /* middlewares */
-    .use(history())
-    .use(methodOverride('_method'))
     .use(morgan('tiny'))    //para ver las peticiones a nuestro servidor
     .use(cors())    //para hacer peticiones a otros dominios
     .use(express.json())    //para usar json en respuestas
@@ -45,9 +39,9 @@ app
     .use(express.static(pathPublicMaterialize))    //definimos la carpeta estatica (materialize)
     /* rutas */
     .use('/', routes)
-    .use('/api', routesItems)
+    .use('/items', routesItems)
      /* 404 */
-    //.use(error404)
+    .use(error404)
     .listen(port, () => {
         console.log(`Corriendo el el puerto: ${port}`)
     })

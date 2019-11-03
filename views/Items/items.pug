@@ -1,21 +1,11 @@
 extends ../layout.pug
 block content
-		h1 Aqui estan los items:
-		a(href="/api/crear").btn Crear item
-		.row
-			each item in items
-				.col.s16.m6
-					.card
-						.card-content
-							span.card-title ID: #{item._id}
-							p Nombre: #{item.nombre}
-							p Descripcion: #{item.descripcion}
-						.card-action
-							.row
-								.col.s6.m0
-									form(method='POST', action=`/api/item/${item._id}?_method=DELETE`)
-										button(type='submit').btn.btn-flat Eliminar
-								.col.s6
-									a(href=`/api/actualizar/${item._id}`).btn.btn-flat Actualizar
-			else
-				h1 No hay items
+	h1 Aqui estan los items:
+	ul
+		each item, i in items
+			li #{item.id}
+			li #{item.nombre}
+			li #{item.descripcion}
+			br
+		else
+			h1 No hay items

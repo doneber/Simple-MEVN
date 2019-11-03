@@ -1,8 +1,0 @@
-extends ../layout.pug
-block content
-    form(action=`/api/item/${id}?_method=PUT` method="POST")
-        label Nombre:
-            input(type="text" name="nombre" value=`${nombre}`)
-        label Descripcion:
-            input(type="text" name="descripcion" value=`${descripcion}`)
-        input(type="submit").btn
