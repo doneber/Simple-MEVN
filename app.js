@@ -8,6 +8,7 @@ import routesItems from './routes/items'
 import methodOverride from 'method-override'
 
 const app = express(),
+    history = require('connect-history-api-fallback'),
     port = process.env.port || 3000,
     pathViews = `${__dirname}/views`,
     pathFavicon = `${__dirname}/public/img/favicon.ico`,
@@ -33,6 +34,7 @@ app
     .set('view engine', 'pug')  //El motor de plantillas
     .set('port', port)  //Definimos el puerto a usar
     /* middlewares */
+    .use(history())
     .use(methodOverride('_method'))
     .use(morgan('tiny'))    //para ver las peticiones a nuestro servidor
     .use(cors())    //para hacer peticiones a otros dominios
@@ -43,9 +45,9 @@ app
     .use(express.static(pathPublicMaterialize))    //definimos la carpeta estatica (materialize)
     /* rutas */
     .use('/', routes)
-    .use('/items', routesItems)
+    .use('/api', routesItems)
      /* 404 */
-    .use(error404)
+    //.use(error404)
     .listen(port, () => {
         console.log(`Corriendo el el puerto: ${port}`)
     })

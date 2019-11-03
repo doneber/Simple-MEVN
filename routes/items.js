@@ -3,11 +3,12 @@ import Item from './../models/item'
 const router = Router()
 router
 	.get('/mostrar', mostrarItems)
-	//CRUD
-	.get('/obtener/:id', obtenerItem)
-	.post('/crear', crearItem)
-	.put('/actualizar/:id', actualizarItem)
-	.delete('/eliminar/:id', eliminarItem)
+	//API
+	.get('/item',items)
+	.get('/item/:id', obtenerItem)
+	.post('/item', crearItem)
+	.put('/item/:id', actualizarItem)
+	.delete('/item/:id', eliminarItem)
 	//CRUD Vistas
 	.get('/crear',(req,res)=>res.render('Items/nuevoItem'))
 	.get('/actualizar/:id',mostrarActualizarItem)
@@ -16,15 +17,19 @@ async function mostrarItems(req, res) {
 	const items = await Item.find()
 	res.render('Items/items', { items })
 }
+async function items(req,res){
+	const items = await Item.find();
+	res.json(items);
+}
 async function obtenerItem(req, res) {
 	try {
 		const _id = req.params.id
-		const nota = await Item.findById(_id);
-		if(!nota)
+		const item = await Item.findById(_id);
+		if(!item)
 			return res.status(400).json({
 				mensaje: "Item no encontrado"
 			})
-		return res.json(nota)
+		return res.json(item)
 	} catch (error) {
 		return res.status(500).json({
 			mensaje: "Error al obtener item",
